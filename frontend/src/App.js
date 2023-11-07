@@ -1,9 +1,19 @@
-import React from 'react'
+import { Container } from "react-bootstrap";
+import { Outlet } from 'react-router-dom' 
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 const App = () => {
   return (
-    <h1>Welcome to TShop</h1>
+    <>
+    <Header/>
+    <main>
+      <Container>
+        <Outlet />
+      </Container>
+    </main>
+    <Footer/>
+    </>
   )
 }
-
 export default App
