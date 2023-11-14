@@ -1,5 +1,5 @@
-import asyncHandler from "../middleware/async-handler"
-import Product from "../models/productModel"
+import asyncHandler from "../middleware/async-handler.js"
+import Product from "../models/productModel.js"
 
 const getProducts = asyncHandler(async (req, res) => {
     const products = await Product.find();
@@ -16,4 +16,4 @@ const getProductById = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { getProducts, getProductById }
+export { getProducts, getProductById };
