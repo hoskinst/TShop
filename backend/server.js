@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { application } from 'express';
 import cookieParser from 'cookie-parser';
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
@@ -27,6 +27,11 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+
+// paypal route
+app.get('/api/config/paypal', (req, res) => 
+    res.send({ clientId: process.env.PAYPAY_CLIENT_ID})
+);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -7,6 +7,7 @@ import '../src/assets/styles/bootstrap.min.css';
 import '../src/assets/styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 // Screen imports
 import HomeScreen from './screens/HomeScreen'
@@ -20,6 +21,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 // Custom component imports
 import PrivateRoute from './components/PrivateRoute';
+import ProfileScreen from './screens/ProfileScreen';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +37,7 @@ const router = createBrowserRouter(
        <Route index={true} path='/payment' element={<PaymentScreen />} />
        <Route index={true} path='/placeOrder' element={<PlaceOrderScreen />} />
        <Route index={true} path='/order/:id' element={<OrderScreen />} />
+       <Route index={true} path='/profile' element={<ProfileScreen />} />
       </Route>
   </Route>
 ))
@@ -43,7 +46,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PayPalScriptProvider deferLoading={true}>
+        <RouterProvider router={router} />
+      </PayPalScriptProvider>
     </Provider>
   </React.StrictMode>
 );
