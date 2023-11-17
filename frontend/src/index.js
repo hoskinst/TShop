@@ -7,14 +7,18 @@ import '../src/assets/styles/bootstrap.min.css';
 import '../src/assets/styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// Screen imports
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import ShippingScreen from './screens/ShippingScreen';
+import OrderScreen from './screens/OrderScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import ShippingScreen from './screens/ShippingScreen';
+// Custom component imports
 import PrivateRoute from './components/PrivateRoute';
 
 const router = createBrowserRouter(
@@ -30,6 +34,7 @@ const router = createBrowserRouter(
        <Route index={true} path='/shipping' element={<ShippingScreen />} />
        <Route index={true} path='/payment' element={<PaymentScreen />} />
        <Route index={true} path='/placeOrder' element={<PlaceOrderScreen />} />
+       <Route index={true} path='/order/:id' element={<OrderScreen />} />
       </Route>
   </Route>
 ))
