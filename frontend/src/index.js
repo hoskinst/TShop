@@ -22,6 +22,7 @@ import ProductListScreen from './screens/admin/ProductListScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ProductEditScreen from './screens/admin/ProductEditScreen';
 
 // Custom component imports
 import AdminRoute from './components/AdminRoute';
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
       <Route path='' element={<AdminRoute />}>
         <Route index={true} path='/admin/orderlist' element={<OrderListScreen />} />
         <Route index={true} path='/admin/productlist' element={<ProductListScreen />} />
+        <Route index={true} path='/admin/product/:id/edit' element={<ProductEditScreen />} />
       </Route>
   </Route>
 ))
