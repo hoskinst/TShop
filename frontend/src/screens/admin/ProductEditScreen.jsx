@@ -19,7 +19,7 @@ const ProductEditScreen = () => {
     const [countInStock, setCountInStock] = useState(0);
     const [description, setDescription] = useState('');
 
-    const {data: product, isLoading, refetch, error } = useGetProductDetailsQuery(productId)
+    const {data: product, isLoading, error } = useGetProductDetailsQuery(productId)
 
     const [updateProduct,{ isLoading: loadingUpdate }] = useUpdateProductMutation();
 
@@ -80,6 +80,7 @@ const ProductEditScreen = () => {
             <FormContainer>
                 <h1>Edit Product</h1>
                 { loadingUpdate && <Loader />}
+                { loadingUpload && <Loader />}
                 { isLoading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                     <Form onSubmit={submitHandler}>
                         <Form.Group controlId='name' className='my-2'>
