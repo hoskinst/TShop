@@ -1,30 +1,45 @@
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
-import { FaTimes, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaTrash, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
-import { useGetProductsQuery, useCreateProductMutation } from '../../slices/productsApiSlice';
+import { 
+    useGetProductsQuery,
+    useCreateProductMutation,
+    useDeleteProductMutation
+ } from '../../slices/productsApiSlice';
 
 const ProductListScreen = () => {
-    const { data: products, isLoading, error } = useGetProductsQuery();
+    const { data: products, isLoading, error, refetch } = useGetProductsQuery();
 
-    const deleteHandler = (id) => {
-        console.log('delete')
-    }
-
-    const [createProduct, { isLoading: loadingCreate, refetch }] = useCreateProductMutation();
+    const [createProduct, { isLoading: loadingCreate }] = useCreateProductMutation();
     
+    const [deleteProduct, { isLoading: loadingDelete }] = useDeleteProductMutation();
+
     const createProductHandler = async() => {
         if (window.confirm('Are you sure you want to create a new product?')) {
             try {
                 await createProduct();
+                toast.success('Product Deleted!')
                 refetch();
             } catch(err) {
                 toast.error(err?.data?.message || err.message)
             }
         }
     }
+
+    const deleteHandler = async (id) => {
+        if (window.confirm('Are you sure you want to delete this product?')) {
+            try {
+                await deleteProduct(id);
+                refetch();
+            } catch (err) {
+                toast.error(err?.data?.message || err.message)
+            }
+        }
+    }
+
     return (
     <>
         <Row className='align-items-center'>
@@ -38,6 +53,7 @@ const ProductListScreen = () => {
             </Col>
         </Row>
         { loadingCreate && <Loader />}
+        { loadingDelete && <Loader />}
         { isLoading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
             <>
                 <Table striped hover responsive className='table-sm'>
