@@ -14,7 +14,6 @@ connectDB();
 
 const port = process.env.PORT || 5000;
 const app = express();
-const __dirname = path.resolve();
 
 // Body parser middleware
 app.use(express.json());
@@ -36,20 +35,21 @@ app.get('/api/config/paypal', (req, res) =>
 app.use(notFound);
 app.use(errorHandler);
 
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
-
 if (process.env.NODE_ENV === 'production') {
-    // set static folder
+    const __dirname = path.resolve();
+    app.use('/uploads', express.static('/var/data/uploads'));
     app.use(express.static(path.join(__dirname, '/frontend/build')));
-
-    // any route that is not api will be redirected to index.html
-    app.get('*', (req, res) => 
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  
+    app.get('*', (req, res) =>
+      res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
     );
-} else {
+  } else {
+    const __dirname = path.resolve();
+    app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
     app.get('/', (req, res) => {
-        res.send('api is running...');
-    })
-}
+      res.send('API is running....');
+    });
+  }
+
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
