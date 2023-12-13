@@ -19,13 +19,13 @@ const Header = () => {
 
     const logoutHandler = async () => {
         try {
-          await logoutApiCall().unwrap();
-          dispatch(logout());
-          dispatch(resetCart());
-          navigate('/login');
-        } catch (err) {
-          console.error(err);
-        }
+            await logoutApiCall().unwrap();
+            dispatch(logout());
+            dispatch(resetCart());
+            navigate('/login');
+          } catch (err) {
+            console.error(err);
+          }
       };
 
     return (

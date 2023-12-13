@@ -8,14 +8,13 @@ const protect = asyncHandler(async(req, res, next) => {
 
     // Read the jwt from the cookie
     token = req.cookies.jwt;
-    
     if (token) {
         try {
-            const decoded = jwt.verify(token, procees.env.JWT_SECRET);
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.user = await User.findById(decoded.userId).select('-password');
             next();
         } catch (error) {
-            req.status(401);
+            res.status(401);
             throw new Error('Not authorized, token failed.');
         }
     } else {
@@ -28,7 +27,7 @@ const admin = (req, res, next) => {
     if (req.user && req.user.isAdmin) {
         next()
     } else {
-        req.status(401);
+        res.status(401);
         throw new Error('Not authorized as admin.')
     } 
 }

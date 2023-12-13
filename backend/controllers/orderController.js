@@ -5,7 +5,6 @@ import Order from "../models/orderModel.js"
 // @route POST /api/orders
 // @access Private
 const addOrderItems = asyncHandler(async(req, res) => {
-    res.send('addOrderItems');
     const {
         itemsPrice,
         orderItems,
@@ -40,7 +39,7 @@ const addOrderItems = asyncHandler(async(req, res) => {
 // @access Private
 const getMyOrders = asyncHandler(async(req, res) => {
     const orders = await Order.find({ user: req.user._id });
-    res.send(200).json(orders);
+    res.status(200).json(orders);
 })
 
 // @desc get orders by id
@@ -51,7 +50,7 @@ const getOrdersById = asyncHandler(async(req, res) => {
         .findById(req.params.id)
         .populate('user', 'name email')
     if (order) {
-        res.send(200).json(order)
+        res.status(200).json(order)
     } else {
         res.status(404)
         throw new Error('No order found')
