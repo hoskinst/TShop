@@ -21,7 +21,7 @@ const Header = () => {
         try {
           await logoutApiCall().unwrap();
           dispatch(logout());
-          dispatch(resetCart()); // Add this line
+          dispatch(resetCart());
           navigate('/login');
         } catch (err) {
           console.error(err);
